@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
         prefetchProducts();
         setupFilters();
     }
+
+    const visitShopButton = document.getElementById('visit-shop');
+    if (visitShopButton) {
+        visitShopButton.addEventListener('click', () => {
+            localStorage.setItem('filterCategory', '');
+        });
+    }
 });
 
 function prefetchProducts() {
@@ -45,6 +52,9 @@ function setupFilters() {
         button.onclick = () => fetchProducts(category === 'All' ? '' : category);
         nav.appendChild(button);
     });
+
+    const savedCategory = localStorage.getItem('filterCategory') || '';
+    fetchProducts(savedCategory);
 }
 
 function showModal(productId) {
